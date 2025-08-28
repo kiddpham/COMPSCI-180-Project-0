@@ -1,2 +1,2 @@
-# COMPSCI-180-Project-0
+# COMPSCI-180-Projects
 Web Page for COMPSCI 180 Projects

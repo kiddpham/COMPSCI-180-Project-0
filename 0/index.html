@@ -130,13 +130,6 @@
             border-bottom: 1px solid #ff0040;
         }
         
-        .image-container {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-        
         .image-item {
             background: rgba(0, 0, 0, 0.9);
             border: 1px solid #00ff41;
@@ -158,27 +151,49 @@
             margin-bottom: 15px;
         }
         
-        .image-item img {
+        .side-by-side-layout {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+        
+        .images-column {
+            flex: 1;
+            position: relative;
+        }
+        
+        .description-column {
+            flex: 1;
+        }
+        
+        .image-with-arrow {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .image-with-arrow:last-child {
+            margin-bottom: 0;
+        }
+        
+        .image-with-arrow img {
             width: 100%;
-            max-width: 600px;
+            max-width: 300px;
             height: auto;
             border: 1px solid #00ff41;
             filter: brightness(1.1) contrast(1.1);
             transition: all 0.2s ease;
         }
         
-        .image-item img:hover {
+        .image-with-arrow img:hover {
             filter: brightness(1.2) contrast(1.2) drop-shadow(0 0 10px rgba(0, 255, 65, 0.3));
         }
         
-        .analysis-container {
-            position: relative;
-            display: inline-block;
-            max-width: 100%;
-        }
-        
-        .annotation {
+        .outside-arrow {
             position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             pointer-events: none;
         }
         
@@ -190,10 +205,6 @@
         
         .annotation-line.horizontal {
             height: 2px;
-        }
-        
-        .annotation-line.vertical {
-            width: 2px;
         }
         
         .annotation-text {
@@ -220,6 +231,35 @@
             box-shadow: 0 0 8px #ff0040;
         }
         
+        .focal-description {
+            padding: 20px;
+            background: rgba(0, 255, 65, 0.05);
+            border: 1px solid #00ff41;
+            border-left: 3px solid #00ff41;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #b0ff7a;
+            height: fit-content;
+        }
+        
+        .focal-description .description-title {
+            color: #00ff41;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+        
+        .focal-description p {
+            margin-bottom: 15px;
+        }
+        
+        .focal-description p:last-child {
+            margin-bottom: 0;
+        }
+        
         .security-footer {
             margin-top: 50px;
             padding: 20px;
@@ -243,7 +283,8 @@
                 text-align: center;
             }
             
-            .image-container {
+            .side-by-side-layout {
+                flex-direction: column;
                 gap: 20px;
             }
         }
@@ -275,59 +316,44 @@
         </div>
         
         <div class="evidence-section">
-            <div class="evidence-title">Photographic Evidence</div>
+            <div class="evidence-title">Part 1: Focal Length Analysis</div>
             
-            <div class="image-container">
-                <div class="image-item">
-                    <div class="image-label">Evidence File 001: Pre-Analysis</div>
-                    <div class="analysis-container">
-                        <img src="IMG_2886.png" alt="Before Analysis">
-                        
-                        <!-- Annotation 1: Pointing to something in upper left -->
-                        <div class="annotation">
-                            <div class="annotation-dot" style="top: 15%; left: 25%;"></div>
-                            <div class="annotation-line horizontal" style="top: 15%; left: 25%; width: 80px;"></div>
-                            <div class="annotation-line vertical" style="top: 15%; left: calc(25% + 80px); height: -30px; transform: translateY(-30px);"></div>
-                            <div class="annotation-text" style="top: calc(15% - 35px); left: calc(25% + 85px);">Camera Position A</div>
+            <div class="image-item">
+                <div class="image-label">Evidence Files: Focal Length Comparison</div>
+                
+                <div class="side-by-side-layout">
+                    <!-- Left side - Images with arrows from outside -->
+                    <div class="images-column">
+                        <div class="image-with-arrow">
+                            <!-- Arrow starting from outside left -->
+                            <div class="outside-arrow">
+                                <div class="annotation-dot" style="left: -40px; top: 50%;"></div>
+                                <div class="annotation-line horizontal" style="left: -40px; top: 50%; width: 35px;"></div>
+                                <div class="annotation-text" style="left: -35px; top: calc(50% + 10px);">Close-up</div>
+                            </div>
+                            <img src="IMG_2886.png" alt="Close Distance - Wide Angle">
                         </div>
                         
-                        <!-- Annotation 2: Pointing to middle area -->
-                        <div class="annotation">
-                            <div class="annotation-dot" style="top: 45%; left: 60%;"></div>
-                            <div class="annotation-line horizontal" style="top: 45%; left: 60%; width: 70px;"></div>
-                            <div class="annotation-line vertical" style="top: 45%; left: calc(60% + 70px); height: 25px;"></div>
-                            <div class="annotation-text" style="top: calc(45% + 30px); left: calc(60% + 75px);">Focal Point</div>
-                        </div>
-                        
-                        <!-- Annotation 3: Pointing to lower area -->
-                        <div class="annotation">
-                            <div class="annotation-dot" style="top: 75%; left: 30%;"></div>
-                            <div class="annotation-line horizontal" style="top: 75%; left: 30%; width: -60px; transform: translateX(-60px);"></div>
-                            <div class="annotation-line vertical" style="top: 75%; left: calc(30% - 60px); height: -20px; transform: translateY(-20px);"></div>
-                            <div class="annotation-text" style="top: calc(75% - 25px); left: calc(30% - 125px);">Perspective Shift</div>
+                        <div class="image-with-arrow">
+                            <!-- Arrow starting from outside left -->
+                            <div class="outside-arrow">
+                                <div class="annotation-dot" style="left: -40px; top: 50%;"></div>
+                                <div class="annotation-line horizontal" style="left: -40px; top: 50%; width: 35px;"></div>
+                                <div class="annotation-text" style="left: -35px; top: calc(50% + 10px);">Telephoto</div>
+                            </div>
+                            <img src="IMG_2888.png" alt="Far Distance - Telephoto">
                         </div>
                     </div>
-                </div>
-                
-                <div class="image-item">
-                    <div class="image-label">Evidence File 002: Post-Analysis</div>
-                    <div class="analysis-container">
-                        <img src="IMG_2888.png" alt="After Analysis">
-                        
-                        <!-- Annotation 1: Pointing to changed element -->
-                        <div class="annotation">
-                            <div class="annotation-dot" style="top: 20%; left: 40%;"></div>
-                            <div class="annotation-line horizontal" style="top: 20%; left: 40%; width: 90px;"></div>
-                            <div class="annotation-line vertical" style="top: 20%; left: calc(40% + 90px); height: -25px; transform: translateY(-25px);"></div>
-                            <div class="annotation-text" style="top: calc(20% - 30px); left: calc(40% + 95px);">Camera Position B</div>
-                        </div>
-                        
-                        <!-- Annotation 2: Pointing to comparison point -->
-                        <div class="annotation">
-                            <div class="annotation-dot" style="top: 65%; left: 70%;"></div>
-                            <div class="annotation-line horizontal" style="top: 65%; left: 70%; width: -80px; transform: translateX(-80px);"></div>
-                            <div class="annotation-line vertical" style="top: 65%; left: calc(70% - 80px); height: 20px;"></div>
-                            <div class="annotation-text" style="top: calc(65% + 25px); left: calc(70% - 135px);">Depth Change</div>
+                    
+                    <!-- Right side - Description in green box -->
+                    <div class="description-column">
+                        <div class="focal-description">
+                            <div class="description-title">Technical Analysis</div>
+                            <p>Focal length is defined as the distance between the sensor and a lens' optical center. A change in this property will alter the perspective of the photo. When a photo's perspective is altered, it changes the proportion between subjects in a photo.</p>
+                            
+                            <p>In the context of faces, the distance between the lens and the face can significantly affect the proportions of facial features. When taken up close, the nose, ears, and other protruding facial features are more pronounced. This makes the face look less appealing than when captured further away.</p>
+                            
+                            <p>In contrast, when the face is further away from the lens and we zoom in, the focal length is effectively lengthened. In turn, features slightly flatten together, making the face look overall more appealing and natural.</p>
                         </div>
                     </div>
                 </div>

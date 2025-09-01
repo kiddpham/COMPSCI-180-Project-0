@@ -1,30 +1,245 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Project #0</title>
+<head>
+    <title>Operation Alpha-Zero - DECLASSIFIED</title>
     <style>
-      @font-face {
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+        
+        @font-face {
             font-family: 'AgencyGothic';
             src: url('../fonts/agencygothicct_medium.otf') format('opentype');
         }
-      body {
-            background-color: #1d1d1f;
-            font-family: 'AgencyGothic', serif;
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #0a0a0a;
+            background-image: 
+                linear-gradient(rgba(0, 255, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 0, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            font-family: 'AgencyGothic', monospace;
             font-size: 20px;
             margin: 20px;
-            color: white;
-      }
-      img {
+            color: #00ff41;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 360px;
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 2px solid #00ff41;
+            background: rgba(0, 0, 0, 0.8);
+        }
+        
+        .header h1 {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 8px #00ff41;
+        }
+        
+        .back-button {
+            background: transparent;
+            border: 2px solid #ff0040;
+            color: #ff0040;
+            padding: 8px 16px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: all 0.2s ease;
+            display: inline-block;
+        }
+        
+        .back-button:hover {
+            background: #ff0040;
+            color: #000;
+            text-shadow: none;
+        }
+        
+        .classification {
+            text-align: center;
+            margin-bottom: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: #ff0040;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            border: 1px solid #ff0040;
+            padding: 8px;
+            background: rgba(255, 0, 64, 0.1);
+        }
+        
+        .mission-details {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-left: 3px solid #00ff41;
+            background: rgba(0, 255, 65, 0.05);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #b0ff7a;
+        }
+        
+        .mission-objective {
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 1px solid #00ff41;
+            background: rgba(0, 0, 0, 0.5);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: #7fff00;
+        }
+        
+        .objective-title {
+            color: #00ff41;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        
+        .evidence-section {
+            margin-bottom: 40px;
+        }
+        
+        .evidence-title {
+            color: #ff0040;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ff0040;
+        }
+        
+        .image-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .image-item {
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid #00ff41;
+            padding: 20px;
+            transition: all 0.2s ease;
+        }
+        
+        .image-item:hover {
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+            border-color: #7fff00;
+        }
+        
+        .image-label {
+            color: #00ff41;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+        
+        .image-item img {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            border: 1px solid #00ff41;
+            filter: brightness(1.1) contrast(1.1);
+            transition: all 0.2s ease;
+        }
+        
+        .image-item img:hover {
+            filter: brightness(1.2) contrast(1.2) drop-shadow(0 0 10px rgba(0, 255, 65, 0.3));
+        }
+        
+        .security-footer {
+            margin-top: 50px;
+            padding: 20px;
+            border-top: 1px solid #00ff41;
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: #7fff00;
+            opacity: 0.8;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                margin: 15px;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .image-container {
+                gap: 20px;
+            }
         }
     </style>
-  </head>
-  <body>
-    <h1>Project #0 - Becoming Friends With Your Camera</h1>
-    <img src="../images/IMG_2884.png" alt="Before">
-    <img src="../images/IMG_2885.png" ald="After">
-  </body>
+</head>
+<body>
+    <div class="container">
+        <div class="classification">
+            &#9632; DECLASSIFIED - OPERATION ALPHA-ZERO &#9632;
+        </div>
+        
+        <div class="header">
+            <h1>Operation Alpha-Zero: Getting to Know Your Camera</h1>
+            <a href="../index.html" class="back-button">&#8592; Return to HQ</a>
+        </div>
+        
+        <div class="mission-details">
+            &gt; MISSION STATUS: DECLASSIFIED<br>
+            &gt; AGENT: Kidd Pham<br>
+            &gt; OPERATION DATE: [REDACTED]<br>
+            &gt; CLASSIFICATION LEVEL: PUBLIC ACCESS
+        </div>
+        
+        <div class="mission-objective">
+            <div class="objective-title">Mission Objective</div>
+            Understanding the relationship between perspective, focal length/zoom, and the center of projection. 
+            This foundational surveillance training involves camera mechanics and visual data acquisition techniques 
+            essential for field operations.
+        </div>
+        
+        <div class="evidence-section">
+            <div class="evidence-title">Photographic Evidence</div>
+            
+            <div class="image-container">
+                <div class="image-item">
+                    <div class="image-label">Evidence File 001: Pre-Analysis</div>
+                    <img src="../images/IMG_2884.png" alt="Before Analysis">
+                </div>
+                
+                <div class="image-item">
+                    <div class="image-label">Evidence File 002: Post-Analysis</div>
+                    <img src="../images/IMG_2885.png" alt="After Analysis">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>

@@ -171,6 +171,55 @@
             filter: brightness(1.2) contrast(1.2) drop-shadow(0 0 10px rgba(0, 255, 65, 0.3));
         }
         
+        .analysis-container {
+            position: relative;
+            display: inline-block;
+            max-width: 100%;
+        }
+        
+        .annotation {
+            position: absolute;
+            pointer-events: none;
+        }
+        
+        .annotation-line {
+            position: absolute;
+            background: #ff0040;
+            z-index: 10;
+        }
+        
+        .annotation-line.horizontal {
+            height: 2px;
+        }
+        
+        .annotation-line.vertical {
+            width: 2px;
+        }
+        
+        .annotation-text {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid #ff0040;
+            color: #ff0040;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            padding: 5px 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            z-index: 11;
+        }
+        
+        .annotation-dot {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #ff0040;
+            border-radius: 50%;
+            z-index: 12;
+            box-shadow: 0 0 8px #ff0040;
+        }
+        
         .security-footer {
             margin-top: 50px;
             padding: 20px;
@@ -208,11 +257,11 @@
         
         <div class="header">
             <h1>Operation Alpha-Zero: Getting to Know Your Camera</h1>
-            <a href="../index.html" class="back-button">&#8592; Return to HQ</a>
+            <a href="../index.html" class="back-button">&#8592; Go Back</a>
         </div>
         
         <div class="mission-details">
-            &gt; MISSION STATUS: DECLASSIFIED<br>
+            &gt; MISSION STATUS: COMPLETE<br>
             &gt; AGENT: Kidd Pham<br>
             &gt; OPERATION DATE: [REDACTED]<br>
             &gt; CLASSIFICATION LEVEL: PUBLIC ACCESS
@@ -231,12 +280,56 @@
             <div class="image-container">
                 <div class="image-item">
                     <div class="image-label">Evidence File 001: Pre-Analysis</div>
-                    <img src="../images/IMG_2884.png" alt="Before Analysis">
+                    <div class="analysis-container">
+                        <img src="../images/IMG_2884.png" alt="Before Analysis">
+                        
+                        <!-- Annotation 1: Pointing to something in upper left -->
+                        <div class="annotation">
+                            <div class="annotation-dot" style="top: 15%; left: 25%;"></div>
+                            <div class="annotation-line horizontal" style="top: 15%; left: 25%; width: 80px;"></div>
+                            <div class="annotation-line vertical" style="top: 15%; left: calc(25% + 80px); height: -30px; transform: translateY(-30px);"></div>
+                            <div class="annotation-text" style="top: calc(15% - 35px); left: calc(25% + 85px);">Camera Position A</div>
+                        </div>
+                        
+                        <!-- Annotation 2: Pointing to middle area -->
+                        <div class="annotation">
+                            <div class="annotation-dot" style="top: 45%; left: 60%;"></div>
+                            <div class="annotation-line horizontal" style="top: 45%; left: 60%; width: 70px;"></div>
+                            <div class="annotation-line vertical" style="top: 45%; left: calc(60% + 70px); height: 25px;"></div>
+                            <div class="annotation-text" style="top: calc(45% + 30px); left: calc(60% + 75px);">Focal Point</div>
+                        </div>
+                        
+                        <!-- Annotation 3: Pointing to lower area -->
+                        <div class="annotation">
+                            <div class="annotation-dot" style="top: 75%; left: 30%;"></div>
+                            <div class="annotation-line horizontal" style="top: 75%; left: 30%; width: -60px; transform: translateX(-60px);"></div>
+                            <div class="annotation-line vertical" style="top: 75%; left: calc(30% - 60px); height: -20px; transform: translateY(-20px);"></div>
+                            <div class="annotation-text" style="top: calc(75% - 25px); left: calc(30% - 125px);">Perspective Shift</div>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="image-item">
                     <div class="image-label">Evidence File 002: Post-Analysis</div>
-                    <img src="../images/IMG_2885.png" alt="After Analysis">
+                    <div class="analysis-container">
+                        <img src="../images/IMG_2885.png" alt="After Analysis">
+                        
+                        <!-- Annotation 1: Pointing to changed element -->
+                        <div class="annotation">
+                            <div class="annotation-dot" style="top: 20%; left: 40%;"></div>
+                            <div class="annotation-line horizontal" style="top: 20%; left: 40%; width: 90px;"></div>
+                            <div class="annotation-line vertical" style="top: 20%; left: calc(40% + 90px); height: -25px; transform: translateY(-25px);"></div>
+                            <div class="annotation-text" style="top: calc(20% - 30px); left: calc(40% + 95px);">Camera Position B</div>
+                        </div>
+                        
+                        <!-- Annotation 2: Pointing to comparison point -->
+                        <div class="annotation">
+                            <div class="annotation-dot" style="top: 65%; left: 70%;"></div>
+                            <div class="annotation-line horizontal" style="top: 65%; left: 70%; width: -80px; transform: translateX(-80px);"></div>
+                            <div class="annotation-line vertical" style="top: 65%; left: calc(70% - 80px); height: 20px;"></div>
+                            <div class="annotation-text" style="top: calc(65% + 25px); left: calc(70% - 135px);">Depth Change</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

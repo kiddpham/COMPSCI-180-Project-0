@@ -105,7 +105,14 @@ def trimImageBorders(image) -> np.ndarray:
 
 def bestShift(referenceImage, currentImage) -> tuple[int, int]:
     maxDisplacement = 15
-    cropFraction = 0.50  # crop more to reduce pixels
+    
+    # Very minimal processing for small images
+    if min(referenceImage.shape) < 500:
+        cropFraction = 0.05  # Almost no cropping - use 90% of image
+        do_subsample = False  # No subsampling for small images
+    else:
+        cropFraction = 0.25  # Light cropping for larger images
+        do_subsample = True
 
     def centralCropFraction(im, frac) -> np.ndarray:
         height, width = im.shape
@@ -128,11 +135,12 @@ def bestShift(referenceImage, currentImage) -> tuple[int, int]:
 
     # 1time crop
     refCropped = centralCropFraction(referenceImage.astype(np.float32, copy=False), cropFraction)
-    curCropped = centralCropFraction(currentImage.astype(np.float32, copy=False),   cropFraction)
+    curCropped = centralCropFraction(currentImage.astype(np.float32, copy=False), cropFraction)
 
     # subsample once (2x) for scoring — lebron level speed win, ben level quality loss
-    refCropped = refCropped[::2, ::2]
-    curCropped = curCropped[::2, ::2]
+    if do_subsample:
+        refCropped = refCropped[::2, ::2]
+        curCropped = curCropped[::2, ::2]
 
     # brute force search and take best ncc 
     def nccScore(a: np.ndarray, b: np.ndarray) -> float:
@@ -306,7 +314,8 @@ def alignPyramid(imagePath, outputPath) -> None:
 
 
 if __name__ == "__main__":
-    #alignPyramid("cs180_proj1_data/three_generations.tif", "three_generations_pyr.jpg")
+    alignPyramid("cs180_proj1_data/three_generations.tif", "three_generations_pyr.jpg")
     #alignPyramid("cs180_proj1_data/church.tif", "church_pyr.jpg")
-    alignPyramid("cs180_proj1_data/church.tif", "church.jpg")
+    #alignPyramid("cs180_proj1_data/three_generations.tif", "three_generations.jpg")
     #alignSingleScale("cs180_proj1_data/tobolsk.jpg", "tobolsk_aligned.jpg")
+    #alignSingleScale("cs180_proj1_data/cathedral.jpg", "cathedral.jpg")

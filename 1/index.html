@@ -1,1 +1,457 @@
-
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Operation Alpha-One - CLASSIFIED</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+        
+        @font-face {
+            font-family: 'AgencyGothic';
+            src: url('../fonts/agencygothicct_medium.otf') format('opentype');
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #0a0a0a;
+            background-image: 
+                linear-gradient(rgba(0, 255, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 0, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            font-family: 'AgencyGothic', monospace;
+            font-size: 20px;
+            margin: 20px;
+            color: #00ff41;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 2px solid #00ff41;
+            background: rgba(0, 0, 0, 0.8);
+        }
+        
+        .header h1 {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 8px #00ff41;
+        }
+        
+        .back-button {
+            background: transparent;
+            border: 2px solid #ff0040;
+            color: #ff0040;
+            padding: 8px 16px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: all 0.2s ease;
+            display: inline-block;
+        }
+        
+        .back-button:hover {
+            background: #ff0040;
+            color: #000;
+            text-shadow: none;
+        }
+        
+        .classification {
+            text-align: center;
+            margin-bottom: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: #ff0040;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            border: 1px solid #ff0040;
+            padding: 8px;
+            background: rgba(255, 0, 64, 0.1);
+        }
+        
+        .mission-details {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-left: 3px solid #00ff41;
+            background: rgba(0, 255, 65, 0.05);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #b0ff7a;
+        }
+        
+        .mission-objective {
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 1px solid #00ff41;
+            background: rgba(0, 0, 0, 0.5);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: #7fff00;
+        }
+        
+        .objective-title {
+            color: #00ff41;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        
+        .evidence-section {
+            margin-bottom: 40px;
+        }
+        
+        .evidence-title {
+            color: #ff0040;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ff0040;
+        }
+        
+        .algorithm-section {
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid #00ff41;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .algorithm-title {
+            color: #00ff41;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+        
+        .algorithm-description {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #b0ff7a;
+            margin-bottom: 15px;
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .image-item {
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid #00ff41;
+            padding: 20px;
+            transition: all 0.2s ease;
+        }
+        
+        .image-item:hover {
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+            border-color: #7fff00;
+        }
+        
+        .image-label {
+            color: #00ff41;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+        
+        .image-item img {
+            width: 100%;
+            height: auto;
+            border: 1px solid #00ff41;
+            filter: brightness(1.1) contrast(1.1);
+            transition: all 0.2s ease;
+        }
+        
+        .image-item img:hover {
+            filter: brightness(1.2) contrast(1.2) drop-shadow(0 0 10px rgba(0, 255, 65, 0.3));
+        }
+        
+        .displacement-data {
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(255, 0, 64, 0.1);
+            border: 1px solid #ff0040;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: #ff0040;
+        }
+        
+        .displacement-title {
+            color: #ff0040;
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+        
+        .displacement-values {
+            color: #ff6666;
+        }
+        
+        .security-footer {
+            margin-top: 50px;
+            padding: 20px;
+            border-top: 1px solid #00ff41;
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: #7fff00;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                margin: 15px;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="classification">
+            &#9632; CLASSIFIED - OPERATION ALPHA-ONE &#9632;
+        </div>
+        
+        <div class="header">
+            <h1>Operation Alpha-One: Image Alignment Protocol</h1>
+            <a href="../index.html" class="back-button">&#8592; Go Back</a>
+        </div>
+        
+        <div class="mission-details">
+            &gt; MISSION STATUS: COMPLETE<br>
+            &gt; AGENT: Kidd Pham<br>
+            &gt; OPERATION DATE: [REDACTED]<br>
+            &gt; CLASSIFICATION LEVEL: RESTRICTED ACCESS
+        </div>
+        
+        <div class="mission-objective">
+            <div class="objective-title">Mission Objective</div>
+            Reconstruct color images from the Prokudin-Gorskii glass plate collection using computational alignment techniques. 
+            The operation involves extracting RGB channels from historical negatives and implementing pyramid-based image registration 
+            to produce accurate color photographs from century-old surveillance data.
+        </div>
+        
+        <div class="evidence-section">
+            <div class="evidence-title">Technical Implementation</div>
+            
+            <div class="algorithm-section">
+                <div class="algorithm-title">Pyramid Alignment Algorithm</div>
+                <div class="algorithm-description">
+                    The system employs a coarse-to-fine pyramid approach for efficient alignment of large-scale images. 
+                    Pre-downsampling handles massive .tif files by reducing computational complexity while maintaining alignment accuracy. 
+                    Normalized Cross-Correlation (NCC) scoring with central cropping isolates key features for optimal channel registration.
+                </div>
+                <div class="algorithm-description">
+                    Search windows are dynamically scaled based on image resolution, with displacement ranges of ±30 pixels 
+                    providing sufficient coverage for historical misalignments. The final implementation achieves sub-10 second 
+                    processing times while maintaining high-quality color reconstruction.
+                </div>
+            </div>
+        </div>
+        
+        <div class="evidence-section">
+            <div class="evidence-title">Operational Results</div>
+            
+            <div class="results-grid">
+                <div class="image-item">
+                    <div class="image-label">Target: Lugano</div>
+                    <img src="../images/lugano_pyr.jpg" alt="Lugano Aligned">
+                    <div class="displacement-data">
+                        <div class="displacement-title">Channel Displacement Vectors</div>
+                        <div class="displacement-values">
+                            Green: (-9, -16)<br>
+                            Red: (-7, -29)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="image-item">
+                    <div class="image-label">Target: Italil</div>
+                    <img src="../images/italil.jpg" alt="Italil Aligned">
+                    <div class="displacement-data">
+                        <div class="displacement-title">Channel Displacement Vectors</div>
+                        <div class="displacement-values">
+                            Green: (-12, 21)<br>
+                            Red: (-23, 36)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="image-item">
+                    <div class="image-label">Target: Lastochikino</div>
+                    <img src="../images/lastochiniko.jpg" alt="Lastochikino Aligned">
+                    <div class="displacement-data">
+                        <div class="displacement-title">Channel Displacement Vectors</div>
+                        <div class="displacement-values">
+                            Green: (-37, -2)<br>
+                            Red: (7, -8)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="image-item">
+                    <div class="image-label">Target: Self Portrait</div>
+                    <img src="../images/self_portrait.jpg" alt="Self Portrait Aligned">
+                    <div class="displacement-data">
+                        <div class="displacement-title">Channel Displacement Vectors</div>
+                        <div class="displacement-values">
+                            Green: (-7, 29)<br>
+                            Red: (5, 37)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="image-item">
+                    <div class="image-label">Target: Siren</div>
+                    <img src="../images/siren.jpg" alt="Siren Aligned">
+                    <div class="displacement-data">
+                        <div class="displacement-title">Channel Displacement Vectors</div>
+                        <div class="displacement-values">
+                            Green: (-18, -6)<br>
+                            Red: (-38, -24)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="image-item">
+                    <div class="image-label">Target: Harvesters</div>
+                    <img src="../images/harvesters.jpg" alt="Harvesters Aligned">
+                    <div class="displacement-data">
+                        <div class="displacement-title">Channel Displacement Vectors</div>
+                        <div class="displacement-values">
+                            Green: (2, 16)<br>
+                            Red: (10, 14)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="image-item">
+                    <div class="image-label">Target: Melons</div>
+                    <img src="../images/melons.jpg" alt="Melons Aligned">
+                    <div class="displacement-data">
+                        <div class="displacement-title">Channel Displacement Vectors</div>
+                        <div class="displacement-values">
+                            Green: (-2, 10)<br>
+                            Red: (10, 14)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="image-item">
+                    <div class="image-label">Target: Icon</div>
+                    <img src="../images/icon.jpg" alt="Icon Aligned">
+                    <div class="displacement-data">
+                        <div class="displacement-title">Channel Displacement Vectors</div>
+                        <div class="displacement-values">
+                            Green: (-4, 18)<br>
+                            Red: (2, 22)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="image-item">
+                    <div class="image-label">Target: Three Generations</div>
+                    <img src="../images/three_generations.jpg" alt="Three Generations Aligned">
+                    <div class="displacement-data">
+                        <div class="displacement-title">Channel Displacement Vectors</div>
+                        <div class="displacement-values">
+                            Green: (-14, 14)<br>
+                            Red: (-22, 12)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="image-item">
+                    <div class="image-label">Target: Church</div>
+                    <img src="../images/church.jpg" alt="Church Aligned">
+                    <div class="displacement-data">
+                        <div class="displacement-title">Channel Displacement Vectors</div>
+                        <div class="displacement-values">
+                            Green: (-8, 4)<br>
+                            Red: (-6, -4)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="image-item">
+                    <div class="image-label">Target: Cathedral</div>
+                    <img src="../images/cathedral_aligned.jpg" alt="Cathedral Aligned">
+                    <div class="displacement-data">
+                        <div class="displacement-title">Channel Displacement Vectors</div>
+                        <div class="displacement-values">
+                            Single-Scale Algorithm<br>
+                            (Low-Res Test Image)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="image-item">
+                    <div class="image-label">Target: Monastery</div>
+                    <img src="../images/monastery_aligned.jpg" alt="Monastery Aligned">
+                    <div class="displacement-data">
+                        <div class="displacement-title">Channel Displacement Vectors</div>
+                        <div class="displacement-values">
+                            Single-Scale Algorithm<br>
+                            (Low-Res Test Image)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="image-item">
+                    <div class="image-label">Target: Tobolsk</div>
+                    <img src="../images/tobolsk_aligned.jpg" alt="Tobolsk Aligned">
+                    <div class="displacement-data">
+                        <div class="displacement-title">Channel Displacement Vectors</div>
+                        <div class="displacement-values">
+                            Single-Scale Algorithm<br>
+                            (Low-Res Test Image)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="security-footer">
+            CLASSIFIED MATERIAL - UNAUTHORIZED DISCLOSURE PROHIBITED<br>
+            CS180 COMPUTATIONAL PHOTOGRAPHY - UC BERKELEY
+        </div>
+    </div>
+</body>
+</html>

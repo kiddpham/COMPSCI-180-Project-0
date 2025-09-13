@@ -195,69 +195,93 @@ def alignSingleScale(imagePath, outputPath) -> None:
 #alignSingleScale("cs180_proj1_data/tobolsk.jpg", "tobolsk_aligned.jpg")
 
 def bestShiftPyramid(referenceImage, currentImage) -> tuple[int, int]:
+    # Build proper multi-level pyramid
     ref = referenceImage.astype(np.float32, copy=False)
     img = currentImage.astype(np.float32, copy=False)
     
-    scale = 1
-    while min(ref.shape) > 2000:
-        ref = ref[::2, ::2]
-        img = img[::2, ::2]
-        scale *= 2
+    # Build pyramid levels using recursive downsampling
+    refs = [ref]
+    imgs = [img]
     
-    maxDisplacement = 30
-    cropFraction = 0.20 
+    # Create multiple levels until image is small enough
+    while min(refs[-1].shape) > 100:
+        # Downsample by factor of 2
+        prev_ref = refs[-1]
+        prev_img = imgs[-1]
+        
+        new_ref = prev_ref[::2, ::2]
+        new_img = prev_img[::2, ::2]
+        
+        refs.append(new_ref)
+        imgs.append(new_img)
     
-    def centralCropFraction(im, frac) -> np.ndarray:
-        height, width = im.shape
-        dh = int(height * frac); dw = int(width * frac)
-        if dh == 0 or dw == 0:
-            return im
-        return im[dh:height - dh, dw:width - dw]
-
-    def overlapViews(a, b, dy, dx) -> tuple[np.ndarray | None, np.ndarray | None]:
-        h, w = a.shape
-        y0a = max(0, dy)
-        y0b = max(0, -dy)
-        x0a = max(0, dx)
-        x0b = max(0, -dx)
-        heightOverlap = min(h - y0a, h - y0b)
-        widthOverlap  = min(w - x0a, w - x0b)
-        if heightOverlap <= 0 or widthOverlap <= 0:
-            return None, None
-        return a[y0a:y0a + heightOverlap, x0a:x0a + widthOverlap], b[y0b:y0b + heightOverlap, x0b:x0b + widthOverlap]
-
-    refCropped = centralCropFraction(ref, cropFraction)
-    curCropped = centralCropFraction(img, cropFraction)
-
-    if min(refCropped.shape) > 1200:
-        refCropped = refCropped[::2, ::2]
-        curCropped = curCropped[::2, ::2]
-        subsample_scale = 2
-    else:
-
-        subsample_scale = 1
-
-
-    def nccScore(a: np.ndarray, b: np.ndarray) -> float:
-        aZero = a - a.mean()
-        bZero = b - b.mean()
-        na = np.linalg.norm(aZero)
-        nb = np.linalg.norm(bZero)
-        if na == 0.0 or nb == 0.0:
-            return -np.inf
-        return float((aZero * bZero).sum() / (na * nb))
-
-    bestDy, bestDx, bestScore = 0, 0, -np.inf
-    for rowOffset in range(-maxDisplacement, maxDisplacement + 1):
-        for colOffset in range(-maxDisplacement, maxDisplacement + 1):
-            viewRef, viewCur = overlapViews(refCropped, curCropped, rowOffset, colOffset)
-            if viewRef is None:
-                continue
-            score = nccScore(viewRef, viewCur)
-            if score > bestScore:
-                bestDy, bestDx, bestScore = rowOffset, colOffset, score
+    # Start at coarsest level (last in list)
+    coarse_level = len(refs) - 1
     
-    return bestDy * scale * subsample_scale, bestDx * scale * subsample_scale
+    # Initial search at coarsest level with large window
+    def searchAtLevel(ref_level, img_level, center_dy=0, center_dx=0, search_radius=15):
+        cropFraction = 0.3
+        
+        # Crop images to focus on center content
+        def centralCropFraction(im, frac) -> np.ndarray:
+            height, width = im.shape
+            dh = int(height * frac); dw = int(width * frac)
+            if dh == 0 or dw == 0:
+                return im
+            return im[dh:height - dh, dw:width - dw]
+
+        def overlapViews(a, b, dy, dx) -> tuple[np.ndarray | None, np.ndarray | None]:
+            h, w = a.shape
+            y0a = max(0, dy)
+            y0b = max(0, -dy)
+            x0a = max(0, dx)
+            x0b = max(0, -dx)
+            heightOverlap = min(h - y0a, h - y0b)
+            widthOverlap = min(w - x0a, w - x0b)
+            if heightOverlap <= 0 or widthOverlap <= 0:
+                return None, None
+            return a[y0a:y0a + heightOverlap, x0a:x0a + widthOverlap], b[y0b:y0b + heightOverlap, x0b:x0b + widthOverlap]
+
+        refCropped = centralCropFraction(ref_level, cropFraction)
+        curCropped = centralCropFraction(img_level, cropFraction)
+
+        def nccScore(a: np.ndarray, b: np.ndarray) -> float:
+            aZero = a - a.mean()
+            bZero = b - b.mean()
+            na = np.linalg.norm(aZero)
+            nb = np.linalg.norm(bZero)
+            if na == 0.0 or nb == 0.0:
+                return -np.inf
+            return float((aZero * bZero).sum() / (na * nb))
+
+        bestDy, bestDx, bestScore = center_dy, center_dx, -np.inf
+        
+        # Search in window around center
+        for rowOffset in range(center_dy - search_radius, center_dy + search_radius + 1):
+            for colOffset in range(center_dx - search_radius, center_dx + search_radius + 1):
+                viewRef, viewCur = overlapViews(refCropped, curCropped, rowOffset, colOffset)
+                if viewRef is None:
+                    continue
+                score = nccScore(viewRef, viewCur)
+                if score > bestScore:
+                    bestDy, bestDx, bestScore = rowOffset, colOffset, score
+        
+        return bestDy, bestDx
+    
+    # Search at coarsest level with large window
+    dy, dx = searchAtLevel(refs[coarse_level], imgs[coarse_level], 0, 0, 15)
+    
+    # Refine through pyramid levels
+    for level in range(coarse_level - 1, -1, -1):
+        # Scale up the displacement estimate
+        dy *= 2
+        dx *= 2
+        
+        # Refine with smaller search window around scaled estimate
+        search_radius = 3 if level > 0 else 2
+        dy, dx = searchAtLevel(refs[level], imgs[level], dy, dx, search_radius)
+    
+    return dy, dx
 
 def alignPyramid(imagePath, outputPath) -> None:
     import time

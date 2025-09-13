@@ -1,111 +1,21 @@
-<div class="image-item">
-                    <div class="image-label">Test: House</div>
-                    <img src="../images/test1.jpg" alt="House Test">
-                    <div class="displacement-data">
-                        <div class="displacement-title">Test Results</div>
-                        <div class="displacement-values">
-                            Green: (-36, 19)<br>
-                            Red: (-2, 36)
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="image-item">
-                    <div class="image-label">Test: Flowers</div>
-                    <img src="../images/test2.jpg" alt="Flowers Test">
-                    <div class="displacement-data">
-                        <div class="displacement-title">Test Results</div>
-                        <div class="displacement-values">
-                            Green: (-5, 3)<br>
-                            Red: (-7, -5)
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="image-item">
-                    <div class="image-label">Test: River</div>
-                    <img src="../images/test3.jpg" alt="River Test">
-                    <div class="displacement-data">
-                        <div class="displacement-title">Test Results</div>
-                        <div class="displacement-values">
-                            Green: (-33, 24)<br>
-                            Red: (10, 46)
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="image-item">
-                    <div class="image-label">Target: Emir</div>
-                    <img src="../images/emir.jpg" alt="Emir Aligne                <div class="image-item">
-                    <div class="image-label">Target: Tobolsk</div>
-                    <img src="../images/tobolsk_aligned.jpg" alt="Tobolsk Aligned">
-                    <div class="displacement-data">
-                        <div class="displacement-title">Channel Displacement Vectors</div>
-                        <div class="displacement-values">
-                            Single-Scale Algorithm<br>
-                            (Low-Res Test Image)
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="image-item">
-                    <div class="image-label">Test: House</div>
-                    <img src="../images/test1.jpg" alt="House Test">
-                    <div class="displacement-data">
-                        <div class="displacement-title">Test Results</div>
-                        <div class="displacement-values">
-                            Additional Test Image<br>
-                            (Custom Implementation)
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="image-item">
-                    <div class="image-label">Test: Flowers</div>
-                    <img src="../images/test2.jpg" alt="Flowers Test">
-                    <div class="displacement-data">
-                        <div class="displacement-title">Test Results</div>
-                        <div class="displacement-values">
-                            Additional Test Image<br>
-                            (Custom Implementation)
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="image-item">
-                    <div class="image-label">Test: River</div>
-                    <img src="../images/test3.jpg" alt="River Test">
-                    <div class="displacement-data">
-                        <div class="displacement-title">Test Results</div>
-                        <div class="displacement-values">
-                            Additional Test Image<br>
-                            (Custom Implementation)
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="image-item">
-                    <div class="image-label">Target: Emir</div>
-                    <img src="../images/emir.jpg" alt="Emir Aligned">
-                    <div class="displacement-data">
-                        <div class="displacement-title"><!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Operation Alpha-One - CLASSIFIED</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
-        
+
         @font-face {
             font-family: 'AgencyGothic';
             src: url('../fonts/agencygothicct_medium.otf') format('opentype');
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             background: #0a0a0a;
             background-image: 
@@ -118,12 +28,12 @@
             color: #00ff41;
             min-height: 100vh;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
         }
-        
+
         .header {
             display: flex;
             justify-content: space-between;
@@ -133,7 +43,7 @@
             border: 2px solid #00ff41;
             background: rgba(0, 0, 0, 0.8);
         }
-        
+
         .header h1 {
             font-size: clamp(1.2rem, 3vw, 1.8rem);
             font-weight: bold;
@@ -141,7 +51,7 @@
             letter-spacing: 2px;
             text-shadow: 0 0 8px #00ff41;
         }
-        
+
         .back-button {
             background: transparent;
             border: 2px solid #ff0040;
@@ -156,13 +66,13 @@
             transition: all 0.2s ease;
             display: inline-block;
         }
-        
+
         .back-button:hover {
             background: #ff0040;
             color: #000;
             text-shadow: none;
         }
-        
+
         .classification {
             text-align: center;
             margin-bottom: 20px;
@@ -175,7 +85,7 @@
             padding: 8px;
             background: rgba(255, 0, 64, 0.1);
         }
-        
+
         .mission-details {
             margin-bottom: 30px;
             padding: 20px;
@@ -186,7 +96,7 @@
             line-height: 1.6;
             color: #b0ff7a;
         }
-        
+
         .mission-objective {
             margin-bottom: 30px;
             padding: 15px;
@@ -196,7 +106,7 @@
             font-size: 14px;
             color: #7fff00;
         }
-        
+
         .objective-title {
             color: #00ff41;
             font-size: 16px;
@@ -204,11 +114,11 @@
             text-transform: uppercase;
             margin-bottom: 10px;
         }
-        
+
         .evidence-section {
             margin-bottom: 40px;
         }
-        
+
         .evidence-title {
             color: #ff0040;
             font-family: 'JetBrains Mono', monospace;
@@ -219,14 +129,14 @@
             padding-bottom: 10px;
             border-bottom: 1px solid #ff0040;
         }
-        
+
         .algorithm-section {
             background: rgba(0, 0, 0, 0.9);
             border: 1px solid #00ff41;
             padding: 20px;
             margin-bottom: 30px;
         }
-        
+
         .algorithm-title {
             color: #00ff41;
             font-family: 'JetBrains Mono', monospace;
@@ -235,7 +145,7 @@
             letter-spacing: 1px;
             margin-bottom: 15px;
         }
-        
+
         .algorithm-description {
             font-family: 'JetBrains Mono', monospace;
             font-size: 13px;
@@ -243,26 +153,26 @@
             color: #b0ff7a;
             margin-bottom: 15px;
         }
-        
+
         .results-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
             margin-bottom: 40px;
         }
-        
+
         .image-item {
             background: rgba(0, 0, 0, 0.9);
             border: 1px solid #00ff41;
             padding: 20px;
             transition: all 0.2s ease;
         }
-        
+
         .image-item:hover {
             box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
             border-color: #7fff00;
         }
-        
+
         .image-label {
             color: #00ff41;
             font-family: 'JetBrains Mono', monospace;
@@ -271,7 +181,7 @@
             letter-spacing: 1px;
             margin-bottom: 15px;
         }
-        
+
         .image-item img {
             width: 100%;
             height: auto;
@@ -279,11 +189,11 @@
             filter: brightness(1.1) contrast(1.1);
             transition: all 0.2s ease;
         }
-        
+
         .image-item img:hover {
             filter: brightness(1.2) contrast(1.2) drop-shadow(0 0 10px rgba(0, 255, 65, 0.3));
         }
-        
+
         .displacement-data {
             margin-top: 15px;
             padding: 10px;
@@ -293,18 +203,18 @@
             font-size: 11px;
             color: #ff0040;
         }
-        
+
         .displacement-title {
             color: #ff0040;
             font-weight: bold;
             margin-bottom: 5px;
             text-transform: uppercase;
         }
-        
+
         .displacement-values {
             color: #ff6666;
         }
-        
+
         .security-footer {
             margin-top: 50px;
             padding: 20px;
@@ -315,18 +225,18 @@
             color: #7fff00;
             opacity: 0.8;
         }
-        
+
         @media (max-width: 768px) {
             body {
                 margin: 15px;
             }
-            
+
             .header {
                 flex-direction: column;
                 gap: 15px;
                 text-align: center;
             }
-            
+
             .results-grid {
                 grid-template-columns: 1fr;
             }
@@ -338,68 +248,63 @@
         <div class="classification">
             &#9632; CLASSIFIED - OPERATION ALPHA-ONE &#9632;
         </div>
-        
+
         <div class="header">
             <h1>Operation Alpha-One: Image Alignment Protocol</h1>
             <a href="../index.html" class="back-button">&#8592; Go Back</a>
         </div>
-        
+
         <div class="mission-details">
             &gt; MISSION STATUS: COMPLETE<br>
             &gt; AGENT: Kidd Pham<br>
             &gt; OPERATION DATE: [REDACTED]<br>
             &gt; CLASSIFICATION LEVEL: RESTRICTED ACCESS
         </div>
-        
+
         <div class="mission-objective">
             <div class="objective-title">Mission Objective</div>
             Reconstruct color images from the Prokudin-Gorskii glass plate collection using computational alignment techniques. 
             The operation involves extracting RGB channels from historical negatives and implementing pyramid-based image registration 
             to produce accurate color photographs from century-old surveillance data.
         </div>
-        
+
         <div class="evidence-section">
             <div class="evidence-title">Technical Implementation</div>
-            
+
             <div class="algorithm-section">
                 <div class="algorithm-title">Border Trimming Protocol</div>
                 <div class="algorithm-description">
                     Implements std-based trimming to automatically detect and remove image borders that would interfere with alignment. 
-                    The system analyzes standard deviation patterns across rows and columns, using statistical thresholds to identify 
-                    content boundaries. This "plug n chug" approach scans from edges inward, looking for consistent content streaks 
-                    that indicate the transition from border artifacts to actual image data.
+                    The algorithm takes the std of each row/col as a threshold to compare to when cutting out the borders. While initial experiements
+                    took a range-based approach, it was not tolerant of micro-deviations along borders. After searching for border thresholds, the indicies
+                    of each side was saved and the B, G and R images were cut from the original.
                 </div>
             </div>
 
             <div class="algorithm-section">
                 <div class="algorithm-title">Single-Scale Alignment</div>
                 <div class="algorithm-description">
-                    Performs brute force exhaustive search over displacement windows (±15 pixels) using Normalized Cross-Correlation scoring.
-                    Features adaptive cropping that preserves 90% of small images while applying strategic subsampling for efficiency.
-                    The "lebron level speed win, ben level quality loss" approach balances computational performance with alignment precision
-                    through intelligent preprocessing and targeted feature extraction.
+                    Builds on the border-trimmed images by implementing an exhaustive single-scale alignment. The blue channel is treated as reference, and both green and red channels are shifted relative to it. To estimate alignment, the algorithm performs a brute-force search over a fixed displacement window (±15 pixels) in both axes. At each candidate offset, a cropped central region of the images is compared using Normalized Cross-Correlation (NCC) to measure similarity. The offset that yields the highest NCC score (closest to 1) is chosen as the best alignment. After finding the shifts for green and red, the channels are rolled accordingly and cropped to the common overlap region before being stacked into a final RGB image.
                 </div>
             </div>
-            
+
             <div class="algorithm-section">
                 <div class="algorithm-title">Multi-Level Pyramid System</div>
                 <div class="algorithm-description">
                     Implements proper coarse-to-fine pyramid alignment using recursive downsampling by factors of 2 until reaching ~100px resolution.
                     Begins search at coarsest level with large windows (±15 pixels), then iteratively refines through finer levels with 
-                    progressively smaller search radii (±3, ±2). Each level scales displacement estimates by 2× and uses the previous 
+                    progressively smaller search radii (±3, ±2). Each level scales displacement estimates by 2x and uses the previous 
                     level's result as a starting point for local refinement.
                 </div>
                 <div class="algorithm-description">
-                    This "gigachad alignment" approach handles massive .tif files efficiently while maintaining sub-10 second processing times.
-                    The system automatically adapts search parameters based on pyramid level, ensuring optimal balance between accuracy and performance
-                    for both historical glass plate reconstructions and modern computational photography applications.
+                    Extends the single-scale approach to a coarse-to-fine pyramid alignment for handling high-resolution glass plate scans. The image pyramid is built by successively downsampling each channel by factors of two until the coarsest representation is reached. At this coarsest level, an initial displacement estimate is found using a wide search window and the same NCC metric as before. The estimate is then propagated upward through the pyramid: at each finer level the displacement is doubled and refined within a small local search window. This progressive refinement allows the algorithm to efficiently converge to accurate displacements without exhaustively searching the full-resolution image. Once final shifts are determined for green and red relative to blue, the channels are rolled and cropped to overlap, producing the aligned RGB composite.
                 </div>
             </div>
         </div>
-        
+
         <div class="evidence-section">
             <div class="evidence-title">Operational Results</div>
-            
+
             <div class="results-grid">
                 <div class="image-item">
                     <div class="image-label">Target: Lugano</div>
@@ -412,7 +317,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="image-item">
                     <div class="image-label">Target: Italil</div>
                     <img src="../images/italil.jpg" alt="Italil Aligned">
@@ -424,7 +329,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="image-item">
                     <div class="image-label">Target: Lastochikino</div>
                     <img src="../images/lastochiniko.jpg" alt="Lastochikino Aligned">
@@ -436,7 +341,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="image-item">
                     <div class="image-label">Target: Self Portrait</div>
                     <img src="../images/self_portrait.jpg" alt="Self Portrait Aligned">
@@ -448,7 +353,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="image-item">
                     <div class="image-label">Target: Siren</div>
                     <img src="../images/siren.jpg" alt="Siren Aligned">
@@ -460,7 +365,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="image-item">
                     <div class="image-label">Target: Harvesters</div>
                     <img src="../images/harvesters.jpg" alt="Harvesters Aligned">
@@ -472,7 +377,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="image-item">
                     <div class="image-label">Target: Melons</div>
                     <img src="../images/melons.jpg" alt="Melons Aligned">
@@ -484,7 +389,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="image-item">
                     <div class="image-label">Target: Icon</div>
                     <img src="../images/icon.jpg" alt="Icon Aligned">
@@ -496,7 +401,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="image-item">
                     <div class="image-label">Target: Three Generations</div>
                     <img src="../images/three_generations.jpg" alt="Three Generations Aligned">
@@ -508,7 +413,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="image-item">
                     <div class="image-label">Target: Church</div>
                     <img src="../images/church.jpg" alt="Church Aligned">
@@ -520,7 +425,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="image-item">
                     <div class="image-label">Target: Cathedral</div>
                     <img src="../images/cathedral_aligned.jpg" alt="Cathedral Aligned">
@@ -532,7 +437,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="image-item">
                     <div class="image-label">Target: Monastery</div>
                     <img src="../images/monastery_aligned.jpg" alt="Monastery Aligned">
@@ -544,7 +449,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="image-item">
                     <div class="image-label">Target: Tobolsk</div>
                     <img src="../images/tobolsk_aligned.jpg" alt="Tobolsk Aligned">

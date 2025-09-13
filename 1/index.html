@@ -1,4 +1,94 @@
-<!DOCTYPE html>
+<div class="image-item">
+                    <div class="image-label">Test: House</div>
+                    <img src="../images/test1.jpg" alt="House Test">
+                    <div class="displacement-data">
+                        <div class="displacement-title">Test Results</div>
+                        <div class="displacement-values">
+                            Green: (-36, 19)<br>
+                            Red: (-2, 36)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="image-item">
+                    <div class="image-label">Test: Flowers</div>
+                    <img src="../images/test2.jpg" alt="Flowers Test">
+                    <div class="displacement-data">
+                        <div class="displacement-title">Test Results</div>
+                        <div class="displacement-values">
+                            Green: (-5, 3)<br>
+                            Red: (-7, -5)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="image-item">
+                    <div class="image-label">Test: River</div>
+                    <img src="../images/test3.jpg" alt="River Test">
+                    <div class="displacement-data">
+                        <div class="displacement-title">Test Results</div>
+                        <div class="displacement-values">
+                            Green: (-33, 24)<br>
+                            Red: (10, 46)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="image-item">
+                    <div class="image-label">Target: Emir</div>
+                    <img src="../images/emir.jpg" alt="Emir Aligne                <div class="image-item">
+                    <div class="image-label">Target: Tobolsk</div>
+                    <img src="../images/tobolsk_aligned.jpg" alt="Tobolsk Aligned">
+                    <div class="displacement-data">
+                        <div class="displacement-title">Channel Displacement Vectors</div>
+                        <div class="displacement-values">
+                            Single-Scale Algorithm<br>
+                            (Low-Res Test Image)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="image-item">
+                    <div class="image-label">Test: House</div>
+                    <img src="../images/test1.jpg" alt="House Test">
+                    <div class="displacement-data">
+                        <div class="displacement-title">Test Results</div>
+                        <div class="displacement-values">
+                            Additional Test Image<br>
+                            (Custom Implementation)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="image-item">
+                    <div class="image-label">Test: Flowers</div>
+                    <img src="../images/test2.jpg" alt="Flowers Test">
+                    <div class="displacement-data">
+                        <div class="displacement-title">Test Results</div>
+                        <div class="displacement-values">
+                            Additional Test Image<br>
+                            (Custom Implementation)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="image-item">
+                    <div class="image-label">Test: River</div>
+                    <img src="../images/test3.jpg" alt="River Test">
+                    <div class="displacement-data">
+                        <div class="displacement-title">Test Results</div>
+                        <div class="displacement-values">
+                            Additional Test Image<br>
+                            (Custom Implementation)
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="image-item">
+                    <div class="image-label">Target: Emir</div>
+                    <img src="../images/emir.jpg" alt="Emir Aligned">
+                    <div class="displacement-data">
+                        <div class="displacement-title"><!DOCTYPE html>
 <html>
 <head>
     <title>Operation Alpha-One - CLASSIFIED</title>
@@ -275,16 +365,19 @@
                 <div class="algorithm-title">Border Trimming Protocol</div>
                 <div class="algorithm-description">
                     Implements std-based trimming to automatically detect and remove image borders that would interfere with alignment. 
-                    The algorithm takes the std of each row/col as a threshold to compare to when cutting out the borders. While initial experiements
-                    took a range-based approach, it was not tolerant of micro-deviations along borders. After searching for border thresholds, the indicies
-                    of each side was saved and the B, G and R images were cut from the original.
+                    The system analyzes standard deviation patterns across rows and columns, using statistical thresholds to identify 
+                    content boundaries. This "plug n chug" approach scans from edges inward, looking for consistent content streaks 
+                    that indicate the transition from border artifacts to actual image data.
                 </div>
             </div>
 
             <div class="algorithm-section">
                 <div class="algorithm-title">Single-Scale Alignment</div>
                 <div class="algorithm-description">
-                    Builds on the border-trimmed images by implementing an exhaustive single-scale alignment. The blue channel is treated as reference, and both green and red channels are shifted relative to it. To estimate alignment, the algorithm performs a brute-force search over a fixed displacement window (±15 pixels) in both axes. At each candidate offset, a cropped central region of the images is compared using Normalized Cross-Correlation (NCC) to measure similarity. The offset that yields the highest NCC score (closest to 1) is chosen as the best alignment. After finding the shifts for green and red, the channels are rolled accordingly and cropped to the common overlap region before being stacked into a final RGB image.
+                    Performs brute force exhaustive search over displacement windows (±15 pixels) using Normalized Cross-Correlation scoring.
+                    Features adaptive cropping that preserves 90% of small images while applying strategic subsampling for efficiency.
+                    The "lebron level speed win, ben level quality loss" approach balances computational performance with alignment precision
+                    through intelligent preprocessing and targeted feature extraction.
                 </div>
             </div>
             
@@ -293,11 +386,13 @@
                 <div class="algorithm-description">
                     Implements proper coarse-to-fine pyramid alignment using recursive downsampling by factors of 2 until reaching ~100px resolution.
                     Begins search at coarsest level with large windows (±15 pixels), then iteratively refines through finer levels with 
-                    progressively smaller search radii (±3, ±2). Each level scales displacement estimates by 2x and uses the previous 
+                    progressively smaller search radii (±3, ±2). Each level scales displacement estimates by 2× and uses the previous 
                     level's result as a starting point for local refinement.
                 </div>
                 <div class="algorithm-description">
-                    Extends the single-scale approach to a coarse-to-fine pyramid alignment for handling high-resolution glass plate scans. The image pyramid is built by successively downsampling each channel by factors of two until the coarsest representation is reached. At this coarsest level, an initial displacement estimate is found using a wide search window and the same NCC metric as before. The estimate is then propagated upward through the pyramid: at each finer level the displacement is doubled and refined within a small local search window. This progressive refinement allows the algorithm to efficiently converge to accurate displacements without exhaustively searching the full-resolution image. Once final shifts are determined for green and red relative to blue, the channels are rolled and cropped to overlap, producing the aligned RGB composite.
+                    This "gigachad alignment" approach handles massive .tif files efficiently while maintaining sub-10 second processing times.
+                    The system automatically adapts search parameters based on pyramid level, ensuring optimal balance between accuracy and performance
+                    for both historical glass plate reconstructions and modern computational photography applications.
                 </div>
             </div>
         </div>
@@ -462,6 +557,11 @@
                     </div>
                 </div>
             </div>
+        </div>
+        
+        <div class="security-footer">
+            CLASSIFIED MATERIAL - UNAUTHORIZED DISCLOSURE PROHIBITED<br>
+            CS180 COMPUTATIONAL PHOTOGRAPHY - UC BERKELEY
         </div>
     </div>
 </body>

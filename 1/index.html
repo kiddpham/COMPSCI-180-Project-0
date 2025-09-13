@@ -297,9 +297,7 @@
                     level's result as a starting point for local refinement.
                 </div>
                 <div class="algorithm-description">
-                    This "gigachad alignment" approach handles massive .tif files efficiently while maintaining sub-10 second processing times.
-                    The system automatically adapts search parameters based on pyramid level, ensuring optimal balance between accuracy and performance
-                    for both historical glass plate reconstructions and modern computational photography applications.
+                    Extends the single-scale approach to a coarse-to-fine pyramid alignment for handling high-resolution glass plate scans. The image pyramid is built by successively downsampling each channel by factors of two until the coarsest representation is reached. At this coarsest level, an initial displacement estimate is found using a wide search window and the same NCC metric as before. The estimate is then propagated upward through the pyramid: at each finer level the displacement is doubled and refined within a small local search window. This progressive refinement allows the algorithm to efficiently converge to accurate displacements without exhaustively searching the full-resolution image. Once final shifts are determined for green and red relative to blue, the channels are rolled and cropped to overlap, producing the aligned RGB composite.
                 </div>
             </div>
         </div>

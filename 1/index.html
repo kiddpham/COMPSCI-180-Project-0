@@ -272,16 +272,34 @@
             <div class="evidence-title">Technical Implementation</div>
             
             <div class="algorithm-section">
-                <div class="algorithm-title">Pyramid Alignment Algorithm</div>
+                <div class="algorithm-title">Border Trimming Protocol</div>
                 <div class="algorithm-description">
-                    The system employs a coarse-to-fine pyramid approach for efficient alignment of large-scale images. 
-                    Pre-downsampling handles massive .tif files by reducing computational complexity while maintaining alignment accuracy. 
-                    Normalized Cross-Correlation (NCC) scoring with central cropping isolates key features for optimal channel registration.
+                    Implements std-based trimming to automatically detect and remove image borders that would interfere with alignment. 
+                    The algorithm takes the std of each row/col as a threshold to compare to when cutting out the borders. While initial experiements
+                    took a range-based approach, it was not tolerant of micro-deviations along borders. After searching for border thresholds, the indicies
+                    of each side was saved and the B, G and R images were cut from the original.
+                </div>
+            </div>
+
+            <div class="algorithm-section">
+                <div class="algorithm-title">Single-Scale Alignment</div>
+                <div class="algorithm-description">
+                    Builds on the border-trimmed images by implementing an exhaustive single-scale alignment. The blue channel is treated as reference, and both green and red channels are shifted relative to it. To estimate alignment, the algorithm performs a brute-force search over a fixed displacement window (±15 pixels) in both axes. At each candidate offset, a cropped central region of the images is compared using Normalized Cross-Correlation (NCC) to measure similarity. The offset that yields the highest NCC score (closest to 1) is chosen as the best alignment. After finding the shifts for green and red, the channels are rolled accordingly and cropped to the common overlap region before being stacked into a final RGB image.
+                </div>
+            </div>
+            
+            <div class="algorithm-section">
+                <div class="algorithm-title">Multi-Level Pyramid System</div>
+                <div class="algorithm-description">
+                    Implements proper coarse-to-fine pyramid alignment using recursive downsampling by factors of 2 until reaching ~100px resolution.
+                    Begins search at coarsest level with large windows (±15 pixels), then iteratively refines through finer levels with 
+                    progressively smaller search radii (±3, ±2). Each level scales displacement estimates by 2× and uses the previous 
+                    level's result as a starting point for local refinement.
                 </div>
                 <div class="algorithm-description">
-                    Search windows are dynamically scaled based on image resolution, with displacement ranges of ±30 pixels 
-                    providing sufficient coverage for historical misalignments. The final implementation achieves sub-10 second 
-                    processing times while maintaining high-quality color reconstruction.
+                    This "gigachad alignment" approach handles massive .tif files efficiently while maintaining sub-10 second processing times.
+                    The system automatically adapts search parameters based on pyramid level, ensuring optimal balance between accuracy and performance
+                    for both historical glass plate reconstructions and modern computational photography applications.
                 </div>
             </div>
         </div>
@@ -446,6 +464,11 @@
                     </div>
                 </div>
             </div>
+        </div>
+        
+        <div class="security-footer">
+            CLASSIFIED MATERIAL - UNAUTHORIZED DISCLOSURE PROHIBITED<br>
+            CS180 COMPUTATIONAL PHOTOGRAPHY - UC BERKELEY
         </div>
     </div>
 </body>

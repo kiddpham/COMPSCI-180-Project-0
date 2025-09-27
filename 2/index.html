@@ -306,11 +306,13 @@
             </div>
 
             <div class="algorithm-description">
-                Compared to raw finite difference outputs, DoG filtering produces significantly cleaner edges by suppressing 
-                high-frequency noise before differentiation. While some fine details are smoothed out, the main structural edges 
-                remain sharp and continuous. Note that both the "single" and "final" 0.3-threshold binary edge maps converge to 
-                nearly identical results, despite following the two different approaches outlined in the prompt. This reinforces 
-                the stability of DoG-based edge detection under reasonable threshold choices.
+                 Compared to raw finite difference outputs, DoG filtering produces significantly cleaner edges by suppressing 
+    high-frequency noise before differentiation. While some fine details are smoothed out, the main structural edges 
+    remain sharp and continuous. The prompt asked us to try two different approaches: (1) first blur the image with a 
+    Gaussian and then apply finite difference operators, and (2) directly convolve with derivative-of-Gaussian (DoG) 
+    filters. The "single" and "final" 0.3-threshold binary edge maps come from these two methods, yet they converge 
+    to nearly identical results. This shows that DoG-based edge detection is stable across both formulations when 
+    reasonable thresholds are chosen.
             </div>
         </div>
     </div>

@@ -351,22 +351,6 @@
                     Edge detection implementation using finite difference operators to compute image gradients. 
                     The Dx and Dy kernels detect horizontal and vertical edges through discrete differentiation.
                 </div>
-                <div class="code-block">
-<div class="code-title">Finite Difference Edge Detection</div><span class="code-comment"># Define finite difference operators</span>
-Dx = np.array([[1, -1]])  <span class="code-comment"># Horizontal edge detector</span>
-Dy = np.array([[1], [-1]]) <span class="code-comment"># Vertical edge detector</span>
-
-<span class="code-comment"># Apply convolution with derivative filters</span>
-partial_x = convolve2d(image, Dx, mode='same')
-partial_y = convolve2d(image, Dy, mode='same')
-
-<span class="code-comment"># Compute gradient magnitude</span>
-gradient_magnitude = np.sqrt(partial_x**2 + partial_y**2)
-
-<span class="code-comment"># Apply threshold for binary edge detection</span>
-threshold = 1.0
-edges = gradient_magnitude > threshold
-                </div>
             </div>
             <div class="results-grid">
                 <div class="image-item">

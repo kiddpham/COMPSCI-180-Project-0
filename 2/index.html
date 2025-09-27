@@ -361,6 +361,36 @@
                 <div class="image-item"><div class="image-label">Sharpened (Amount 3.0)</div><img src="../images/proj2/2.1/henry_cavill_sharpened_3.0.png"></div>
             </div>
             <div class="algorithm-description">The Taj Mahal experiment clearly shows the separation of low and high frequencies: the blurred image captures structure, while the high-frequency residuals highlight fine details. Adding the scaled residuals yields a sharpened version with more pronounced edges. For Henry Cavill's portrait, varying the sharpening strength demonstrates the tradeoff: mild sharpening (0.5) subtly enhances detail, while stronger sharpening (3.0) increases contrast but can introduce haloing artifacts. This highlights the importance of selecting appropriate scaling factors when applying unsharp masking.</div>
+            
+            <div class="algorithm-section">
+                <div class="algorithm-title">Part 2.2: Hybrid Images</div>
+                <div class="algorithm-description">Hybrid images combine high-frequency components from one image with low-frequency components from another, creating a perceptual illusion where different images are visible at different viewing distances. The low frequencies dominate at distance while high frequencies become apparent up close.</div>
+            </div>
+            <div class="results-grid">
+                <div class="image-item"><div class="image-label">Derek Zoolander – Original</div><img src="../images/proj2/2.2/fft_derek_original.png"></div>
+                <div class="image-item"><div class="image-label">Nutmeg – Original</div><img src="../images/proj2/2.2/fft_nutmeg_original.png"></div>
+            </div>
+            <div class="results-grid">
+                <div class="image-item"><div class="image-label">Derek – Low Frequencies (σ=7)</div><img src="../images/proj2/2.2/fft_low_freq.png"></div>
+                <div class="image-item"><div class="image-label">Nutmeg – High Frequencies (σ=5)</div><img src="../images/proj2/2.2/fft_high_freq.png"></div>
+                <div class="image-item"><div class="image-label">Hybrid Image Result</div><img src="../images/proj2/2.2/fft_hybrid.png"></div>
+            </div>
+            <div class="results-grid">
+                <div class="image-item"><div class="image-label">Happy Face – Original</div><img src="../images/proj2/2.2/happy_face.jpg"></div>
+                <div class="image-item"><div class="image-label">Sad Face – Original</div><img src="../images/proj2/2.2/sad_face.jpg"></div>
+                <div class="image-item"><div class="image-label">Happy-Sad Hybrid</div><img src="../images/proj2/2.2/sad_and_happy.png"></div>
+            </div>
+            <div class="results-grid">
+                <div class="image-item"><div class="image-label">Sarah – Original</div><img src="../images/proj2/2.2/sarah.jpg"></div>
+                <div class="image-item"><div class="image-label">Kitten – Original</div><img src="../images/proj2/2.2/kitten.jpg"></div>
+                <div class="image-item"><div class="image-label">Sarah-Kitten Hybrid</div><img src="../images/proj2/2.2/sarah_and_kitten.png"></div>
+            </div>
+            <div class="results-grid">
+                <div class="image-item"><div class="image-label">Low Frequency Component (σ=7)</div><img src="../images/proj2/2.2/low_freq_component17.png"></div>
+                <div class="image-item"><div class="image-label">High Frequency Component (σ=5)</div><img src="../images/proj2/2.2/high_freq_component5.png"></div>
+                <div class="image-item"><div class="image-label">Final Hybrid (Multi-scale)</div><img src="../images/proj2/2.2/hybrid_image5.png"></div>
+            </div>
+            <div class="algorithm-description">The Derek-Nutmeg hybrid demonstrates the classic hybrid image effect: from a distance, the low-frequency Derek dominates the perception, while up close, Nutmeg's high-frequency details become visible. Using σ₁=5 for high-pass filtering and σ₂=7 for low-pass filtering creates optimal frequency separation. The happy-sad face hybrid creates an emotional ambiguity that shifts with viewing distance. The Sarah-kitten hybrid showcases how drastically different subjects can be combined, with the human features visible from up close transitioning to feline features far away. The frequency analysis reveals how the hybrid preserves low frequencies from one source while incorporating high-frequency details from another, creating the perceptual duality.</div>
         </div>
     </div>
 </body>

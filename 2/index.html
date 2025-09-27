@@ -319,55 +319,16 @@
             </div>
             <div class="algorithm-description">
                 Analysis demonstrates a clear hierarchy in running speed: the four-loop implementation exhibits 
-                the highest latency, while the two-loop variant achieves superior performance through NumPy's vectorized operations 
+                the slowest runtime, while the two-loop variant achieves superior performance through NumPy's vectorized operations 
                 that eliminate the inner kernel iteration loops. The scipy.signal.convolve2d function surpasses both custom 
                 implementations by leveraging frequency domain computation for larger kernels - exploiting the mathematical 
                 equivalence between spatial domain convolution and frequency domain multiplication via FFT transformations, 
                 resulting in dramatically reduced computational complexity for extensive kernel dimensions.
                 
-                All three implementations have identical boundary management through zero-padding, applying (kernel_dimension/2) 
+                All three implementations contain identical boundary management through zero-padding, applying (kernel_dimension/2) 
                 layers of null values around the image perimeter. This padding strategy results in edge pixels having reduced 
                 neighbor visibility, biasing their convolution outputs toward darker values due to the zero-valued padding 
                 contribution.
-            </div>
-            
-            <div class="algorithm-section">
-                <div class="algorithm-title">Finite Difference Operator: Edge Detection Protocol</div>
-                <div class="code-block">
-<div class="code-title">Finite Difference Edge Detection</div><span class="code-comment"># Define finite difference operators</span>
-Dx = np.array([[1, -1]])  <span class="code-comment"># Horizontal edge detector</span>
-Dy = np.array([[1], [-1]]) <span class="code-comment"># Vertical edge detector</span>
-
-<span class="code-comment"># Apply convolution with derivative filters</span>
-partial_x = convolve2d(image, Dx, mode='same')
-partial_y = convolve2d(image, Dy, mode='same')
-
-<span class="code-comment"># Compute gradient magnitude</span>
-gradient_magnitude = np.sqrt(partial_x**2 + partial_y**2)
-
-<span class="code-comment"># Apply threshold for binary edge detection</span>
-threshold = 35
-edges = gradient_magnitude > threshold
-                </div>
-            </div>
-            <div class="results-grid">
-                <div class="image-item">
-                    <div class="image-label">Original Subject</div>
-                    <img src="../images/proj2/1.1/christian_bale.jpg" alt="Original Image">
-                </div>
-                <div class="image-item">
-                    <div class="image-label">Dx Operator Output (Horizontal Edges)</div>
-                    <img src="../images/proj2/1.1/christian_Dx.png" alt="Dx Convolved">
-                </div>
-                <div class="image-item">
-                    <div class="image-label">Dy Operator Output (Vertical Edges)</div>
-                    <img src="../images/proj2/1.1/christian_Dy.png" alt="Dy Convolved">
-                </div>
-            </div>
-            <div class="algorithm-description">
-                The finite difference operators successfully isolate directional edge information, with Dx highlighting 
-                vertical structures and Dy emphasizing horizontal features. The gradient magnitude combines both directional 
-                components to produce comprehensive edge detection results.
             </div>
         </div>
     </div>

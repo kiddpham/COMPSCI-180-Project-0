@@ -318,14 +318,14 @@
                 </div>
             </div>
             <div class="algorithm-description">
-                Performance benchmarking demonstrates a clear hierarchy in execution speed: the four-loop implementation exhibits 
+                Analysis demonstrates a clear hierarchy in running speed: the four-loop implementation exhibits 
                 the highest latency, while the two-loop variant achieves superior performance through NumPy's vectorized operations 
                 that eliminate the inner kernel iteration loops. The scipy.signal.convolve2d function surpasses both custom 
                 implementations by leveraging frequency domain computation for larger kernels - exploiting the mathematical 
                 equivalence between spatial domain convolution and frequency domain multiplication via FFT transformations, 
                 resulting in dramatically reduced computational complexity for extensive kernel dimensions.
                 
-                All three implementations employ identical boundary management through zero-padding, applying (kernel_dimension/2) 
+                All three implementations have identical boundary management through zero-padding, applying (kernel_dimension/2) 
                 layers of null values around the image perimeter. This padding strategy results in edge pixels having reduced 
                 neighbor visibility, biasing their convolution outputs toward darker values due to the zero-valued padding 
                 contribution.

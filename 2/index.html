@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Operation Alpha-Two - DECLASSIFIED</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+
+        @font-face {
+            font-family: 'AgencyGothic';
+            src: url('../fonts/agencygothicct_medium.otf') format('opentype');
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a0a;
+            background-image: 
+                linear-gradient(rgba(0, 255, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 0, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            font-family: 'AgencyGothic', monospace;
+            font-size: 20px;
+            margin: 20px;
+            color: #00ff41;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 2px solid #00ff41;
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .header h1 {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 8px #00ff41;
+        }
+
+        .back-button {
+            background: transparent;
+            border: 2px solid #ff0040;
+            color: #ff0040;
+            padding: 8px 16px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: all 0.2s ease;
+            display: inline-block;
+        }
+
+        .back-button:hover {
+            background: #ff0040;
+            color: #000;
+            text-shadow: none;
+        }
+
+        .classification {
+            text-align: center;
+            margin-bottom: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: #ff0040;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            border: 1px solid #ff0040;
+            padding: 8px;
+            background: rgba(255, 0, 64, 0.1);
+        }
+
+        .mission-details {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-left: 3px solid #00ff41;
+            background: rgba(0, 255, 65, 0.05);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #b0ff7a;
+        }
+
+        .mission-objective {
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 1px solid #00ff41;
+            background: rgba(0, 0, 0, 0.5);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: #7fff00;
+        }
+
+        .objective-title {
+            color: #00ff41;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .evidence-section {
+            margin-bottom: 40px;
+        }
+
+        .evidence-title {
+            color: #ff0040;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ff0040;
+        }
+
+        .algorithm-section {
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid #00ff41;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .algorithm-title {
+            color: #00ff41;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .algorithm-description {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #b0ff7a;
+            margin-bottom: 15px;
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.95);
+            border: 1px solid #00ff41;
+            border-left: 3px solid #ff0040;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            line-height: 1.4;
+            color: #b0ff7a;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+
+        .code-title {
+            color: #ff0040;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .code-comment {
+            color: #7fff00;
+        }
+
+        .code-keyword {
+            color: #00ff41;
+        }
+
+        .code-string {
+            color: #ffaa00;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .image-item {
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid #00ff41;
+            padding: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .image-item:hover {
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+            border-color: #7fff00;
+        }
+
+        .image-label {
+            color: #00ff41;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .image-item img {
+            width: 100%;
+            height: auto;
+            border: 1px solid #00ff41;
+            filter: brightness(1.1) contrast(1.1);
+            transition: all 0.2s ease;
+        }
+
+        .image-item img:hover {
+            filter: brightness(1.2) contrast(1.2) drop-shadow(0 0 10px rgba(0, 255, 65, 0.3));
+        }
+
+        .side-by-side {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .side-by-side .image-item {
+            flex: 1;
+        }
+
+        .security-footer {
+            margin-top: 50px;
+            padding: 20px;
+            border-top: 1px solid #00ff41;
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: #7fff00;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                margin: 15px;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .side-by-side {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="classification">
+            &#9632; DECLASSIFIED - OPERATION ALPHA-TWO &#9632;
+        </div>
+
+        <div class="header">
+            <h1>Operation Alpha-Two: Fun with Filters and Frequencies</h1>
+            <a href="../index.html" class="back-button">&#8592; Go Back</a>
+        </div>
+
+        <div class="mission-details">
+            &gt; MISSION STATUS: COMPLETE<br>
+            &gt; AGENT: Kidd Pham<br>
+            &gt; OPERATION DATE: [REDACTED]<br>
+            &gt; CLASSIFICATION LEVEL: RESTRICTED ACCESS
+        </div>
+
+        <div class="mission-objective">
+            <div class="objective-title">Mission Objective</div>
+            Advanced computational photography operations involving 2D convolutions, edge detection, frequency domain analysis, 
+            hybrid image synthesis, and multi-resolution blending techniques. Mission includes implementation of core filtering 
+            algorithms from scratch and application to sophisticated image manipulation protocols.
+        </div>
+
+        <div class="evidence-section">
+            <div class="evidence-title">Part 1: Fun with Filters</div>
+
+            <div class="algorithm-section">
+                <div class="algorithm-title">Part 1.1: Convolution Implementation Protocol</div>
+                <div class="algorithm-description">
+                    Implementation of 2D convolution operations using both four-loop and optimized two-loop methodologies. 
+                    Includes zero-padding implementation and performance comparison with scipy's built-in convolution functions.
+                </div>
+
+                <div class="code-block">
+<div class="code-title">Four-Loop Convolution Implementation</div><span class="code-keyword">def</span> <span class="code-keyword">convolution2d_four_loops</span>(image: np.ndarray, kernel: np.ndarray) -> np.ndarray:
+    height, width = image.shape
+    kerHeight, kerWidth = kernel.shape
+
+    <span class="code-comment"># Zero padding implementation</span>
+    padHeight, padWidth = kerHeight // 2, kerWidth // 2
+    paddedImage = np.pad(image, ((padHeight, padHeight), (padWidth, padWidth)))
+    kerFlipped = np.flip(kernel, axis=(0,1))
+    result = np.zeros((height, width), dtype=np.float32)
+
+    <span class="code-comment"># Four-loop convolution operation</span>
+    <span class="code-keyword">for</span> i <span class="code-keyword">in</span> range(height):
+        <span class="code-keyword">for</span> j <span class="code-keyword">in</span> range(width):
+            runningSum = 0.0
+            <span class="code-comment"># Kernel iteration</span>
+            <span class="code-keyword">for</span> k <span class="code-keyword">in</span> range(kerHeight):
+                <span class="code-keyword">for</span> l <span class="code-keyword">in</span> range(kerWidth):
+                    runningSum += kerFlipped[k, l] * paddedImage[i +k, j + l]
+            result[i, j] = runningSum
+
+    <span class="code-keyword">return</span> result
+                </div>
+
+                <div class="code-block">
+<div class="code-title">Optimized Two-Loop Implementation</div><span class="code-keyword">def</span> <span class="code-keyword">convolution2d_two_loops</span>(image: np.ndarray, kernel: np.ndarray) -> np.ndarray:
+    height, width = image.shape
+    kerHeight, kerWidth = kernel.shape
+
+    <span class="code-comment"># Zero padding implementation</span>
+    padHeight, padWidth = kerHeight // 2, kerWidth // 2
+    paddedImage = np.pad(image, ((padHeight, padHeight), (padWidth, padWidth)))
+    kerFlipped = np.flip(kernel, axis=(0,1))
+    result = np.zeros((height, width), dtype=np.float32)
+
+    <span class="code-comment"># Optimized two-loop with vectorized operations</span>
+    <span class="code-keyword">for</span> i <span class="code-keyword">in</span> range(height):
+        <span class="code-keyword">for</span> j <span class="code-keyword">in</span> range(width):
+            region = paddedImage[i:i+kerHeight, j:j+kerWidth]
+            result[i,j] = np.sum(region * kerFlipped)
+
+    <span class="code-keyword">return</span> result
+                </div>
+
+                <div class="algorithm-description">
+                    The two-loop implementation leverages NumPy's vectorized operations for the kernel computation, resulting in 
+                    significantly improved performance while maintaining identical output quality. Both implementations include 
+                    proper zero-padding to handle boundary conditions and kernel flipping for true convolution operation.
+                </div>
+            </div>
+
+            <div class="results-grid">
+                <div class="image-item">
+                    <div class="image-label">Test Subject: Convolution Validation</div>
+                    <img src="../images/proj2/1.1/my_convo_blurred_christian.png" alt="Custom Convolution Result">
+                </div>
+
+                <div class="image-item">
+                    <div class="image-label">Reference: SciPy Implementation</div>
+                    <img src="../images/proj2/1.1/scipy_blurred_christian.png" alt="SciPy Convolution Result">
+                </div>
+            </div>
+
+            <div class="algorithm-description">
+                Performance analysis reveals the two-loop implementation achieves approximately 3x speedup over the four-loop version 
+                while producing identical results to scipy.signal.convolve2d. Boundary handling through zero-padding ensures consistent 
+                output dimensions and eliminates edge artifacts.
+            </div>
+        </div>
+
+
+    </div>
+</body>
+</html>

@@ -318,17 +318,21 @@
                 </div>
             </div>
             <div class="algorithm-description">
-                Performance analysis reveals the two-loop implementation achieves approximately 3x speedup over the four-loop version 
-                while producing identical results to scipy.signal.convolve2d. Boundary handling through zero-padding ensures consistent 
-                output dimensions and eliminates edge artifacts.
+                Performance benchmarking demonstrates a clear hierarchy in execution speed: the four-loop implementation exhibits 
+                the highest latency, while the two-loop variant achieves superior performance through NumPy's vectorized operations 
+                that eliminate the inner kernel iteration loops. The scipy.signal.convolve2d function surpasses both custom 
+                implementations by leveraging frequency domain computation for larger kernels - exploiting the mathematical 
+                equivalence between spatial domain convolution and frequency domain multiplication via FFT transformations, 
+                resulting in dramatically reduced computational complexity for extensive kernel dimensions.
+                
+                All three implementations employ identical boundary management through zero-padding, applying (kernel_dimension/2) 
+                layers of null values around the image perimeter. This padding strategy results in edge pixels having reduced 
+                neighbor visibility, biasing their convolution outputs toward darker values due to the zero-valued padding 
+                contribution.
             </div>
             
             <div class="algorithm-section">
                 <div class="algorithm-title">Finite Difference Operator: Edge Detection Protocol</div>
-                <div class="algorithm-description">
-                    Implementation of edge detection using finite difference operators to compute image gradients. 
-                    The Dx and Dy kernels detect horizontal and vertical edges respectively through discrete differentiation.
-                </div>
                 <div class="code-block">
 <div class="code-title">Finite Difference Edge Detection</div><span class="code-comment"># Define finite difference operators</span>
 Dx = np.array([[1, -1]])  <span class="code-comment"># Horizontal edge detector</span>

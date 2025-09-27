@@ -370,6 +370,57 @@
                     <img src="../images/proj2/1.2/cameraman_final_binary_edges.png" alt="Binary Edges">
                 </div>
             </div>
+
+            <!-- NEW PART 1.3 ADDED -->
+            <div class="algorithm-section">
+                <div class="algorithm-title">Part 1.3: Derivative of Gaussian (DoG) Filter</div>
+                <div class="algorithm-description">
+                    To reduce noise sensitivity inherent in finite difference operators, Gaussian smoothing was applied prior 
+                    to edge detection. Derivative of Gaussian (DoG) filters were constructed by convolving the Gaussian kernel 
+                    with <code>D<sub>x</sub></code> and <code>D<sub>y</sub></code>, allowing gradient estimation in a single step.
+                </div>
+            </div>
+
+            <div class="results-grid">
+                <div class="image-item">
+                    <div class="image-label">Gaussian Kernel (Large)</div>
+                    <img src="../images/proj2/1.3/gaussian_kernel_large.png" alt="Gaussian Kernel">
+                </div>
+                <div class="image-item">
+                    <div class="image-label">DoG X Kernel</div>
+                    <img src="../images/proj2/1.3/DoG_x_kernel_large.png" alt="DoG X Kernel">
+                </div>
+                <div class="image-item">
+                    <div class="image-label">DoG Y Kernel</div>
+                    <img src="../images/proj2/1.3/DoG_y_kernel_large.png" alt="DoG Y Kernel">
+                </div>
+            </div>
+
+            <div class="results-grid">
+                <div class="image-item">
+                    <div class="image-label">Gradient Magnitude (DoG)</div>
+                    <img src="../images/proj2/1.3/gradient_magnitude_DoG.png" alt="Gradient Magnitude DoG">
+                </div>
+                <div class="image-item">
+                    <div class="image-label">Binary Edges (DoG, Threshold 1.0)</div>
+                    <img src="../images/proj2/1.3/cameraman_final_binary_edges_DoG_1.0.png" alt="Binary Edges DoG 1.0">
+                </div>
+                <div class="image-item">
+                    <div class="image-label">Binary Edges (DoG, Single Threshold)</div>
+                    <img src="../images/proj2/1.3/cameraman_final_binary_edges_DoG_single.png" alt="Binary Edges DoG Single">
+                </div>
+                <div class="image-item">
+                    <div class="image-label">Binary Edges (DoG, Final)</div>
+                    <img src="../images/proj2/1.3/cameraman_final_binary_edges_DoG.png" alt="Binary Edges DoG Final">
+                </div>
+            </div>
+
+            <div class="algorithm-description">
+                Compared to raw finite difference outputs, DoG filtering produces significantly cleaner edges by suppressing 
+                high-frequency noise before differentiation. While some fine details are smoothed out, the main structural edges 
+                remain sharp and continuous. The Gaussian kernel width controls this tradeoff: larger kernels remove more noise 
+                but risk oversmoothing edges, while smaller kernels preserve detail at the cost of noise sensitivity.
+            </div>
         </div>
     </div>
 </body>

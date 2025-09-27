@@ -291,6 +291,19 @@
             result[i,j] = np.sum(region * kerFlipped)
     <span class="code-keyword">return</span> result
                 </div>
+                <div class="algorithm-description">
+                    Analysis demonstrates a clear hierarchy in running speed: the four-loop implementation exhibits 
+                    the slowest runtime, while the two-loop variant achieves superior performance through NumPy's vectorized operations 
+                    that eliminate the inner kernel iteration loops. The scipy.signal.convolve2d function surpasses both custom 
+                    implementations by leveraging frequency domain computation for larger kernels - exploiting the mathematical 
+                    equivalence between spatial domain convolution and frequency domain multiplication via FFT transformations, 
+                    resulting in dramatically reduced computational complexity for extensive kernel dimensions.
+                    
+                    All three implementations contain identical boundary management through zero-padding, applying (kernel_dimension/2) 
+                    layers of null values around the image perimeter. This padding strategy results in edge pixels having reduced 
+                    neighbor visibility, biasing their convolution outputs toward darker values due to the zero-valued padding 
+                    contribution.
+                </div>
             </div>
             <div class="results-grid">
                 <div class="image-item"><div class="image-label">Test Subject: Convolution Validation</div><img src="../images/proj2/1.1/my_convo_blurred_christian.png"></div>
@@ -347,7 +360,7 @@
                 <div class="image-item"><div class="image-label">Sharpened (Amount 2.0)</div><img src="../images/proj2/2.1/henry_cavill_sharpened_2.0.png"></div>
                 <div class="image-item"><div class="image-label">Sharpened (Amount 3.0)</div><img src="../images/proj2/2.1/henry_cavill_sharpened_3.0.png"></div>
             </div>
-            <div class="algorithm-description">The Taj Mahal experiment clearly shows the separation of low and high frequencies: the blurred image captures structure, while the high-frequency residuals highlight fine details. Adding the scaled residuals yields a sharpened version with more pronounced edges. For Henry Cavill’s portrait, varying the sharpening strength demonstrates the tradeoff: mild sharpening (0.5) subtly enhances detail, while stronger sharpening (3.0) increases contrast but can introduce haloing artifacts. This highlights the importance of selecting appropriate scaling factors when applying unsharp masking.</div>
+            <div class="algorithm-description">The Taj Mahal experiment clearly shows the separation of low and high frequencies: the blurred image captures structure, while the high-frequency residuals highlight fine details. Adding the scaled residuals yields a sharpened version with more pronounced edges. For Henry Cavill's portrait, varying the sharpening strength demonstrates the tradeoff: mild sharpening (0.5) subtly enhances detail, while stronger sharpening (3.0) increases contrast but can introduce haloing artifacts. This highlights the importance of selecting appropriate scaling factors when applying unsharp masking.</div>
         </div>
     </div>
 </body>
